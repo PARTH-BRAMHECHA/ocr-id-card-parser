@@ -109,7 +109,6 @@ document-scanner/
 ├── templates/
 │   └── index.html             # HTML interface
 ├── uploads/                   # Folder to store uploaded images
-├── screenshots/               # Screenshots folder (optional)
 ├── .env                       # API key (not to be committed)
 └── README.md
 ```
