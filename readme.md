@@ -1,112 +1,166 @@
-Document Scanner Web App
-Overview
-This is a Flask-based web application that extracts information from uploaded images of Aadhaar or PAN cards using OCR (Optical Character Recognition) via the OCR.Space API. The app processes images to identify and extract details such as Aadhaar or PAN numbers, names, dates of birth, and father's names (for PAN cards).
-Features
+# 📄 Document Scanner Web App
 
-Upload images in JPG, JPEG, or PNG formats.
-Extracts Aadhaar number, name, and date of birth from Aadhaar cards.
-Extracts PAN number, name, father's name, and date of birth from PAN cards.
-Validates file formats and provides error messages for unsupported files or invalid card details.
-Uses OCR.Space API for text extraction from images.
-Simple web interface for uploading images and displaying results.
+A Flask-based web app that extracts details from Aadhaar and PAN card images using OCR via the OCR.Space API.
 
-Requirements
+---
 
-Python 3.6+
-Flask
-Requests
-python-dotenv
-Werkzeug
+## 🔍 Overview
 
-Installation
+This web application leverages **Optical Character Recognition (OCR)** to extract essential details from uploaded images of **Aadhaar** or **PAN** cards. It uses the [OCR.Space API](https://ocr.space/OCRAPI) and provides a simple and user-friendly interface to display the results.
 
-Clone the repository:
+---
+
+## ✨ Features
+
+- 📤 Upload Aadhaar or PAN card images in **JPG**, **JPEG**, or **PNG** formats
+- 🔐 Extracts:
+  - **Aadhaar**: Name, Aadhaar Number, DOB
+  - **PAN**: Name, PAN Number, Father's Name, DOB
+- 🛡️ Validates file format and content
+- 🌐 Integrates with **OCR.Space API**
+- 🖥️ Minimal web UI built with **Flask + HTML**
+- ❌ Displays user-friendly error messages for unsupported formats or invalid data
+
+---
+
+## 📦 Requirements
+
+- Python 3.6+
+- Flask
+- Requests
+- python-dotenv
+- Werkzeug
+
+---
+
+## ⚙️ Installation
+
+### 1. Clone the Repository
+
+```bash
 git clone <repository-url>
 cd document-scanner
+```
 
+### 2. (Optional) Create a Virtual Environment
 
-Create a virtual environment (optional but recommended):
+```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Windows: venv\Scripts\activate
+```
 
+### 3. Install Dependencies
 
-Install dependencies:
+```bash
 pip install flask requests python-dotenv werkzeug
+```
 
+### 4. Set Up Environment Variables
 
-Set up environment variables:
+- Create a `.env` file in the root directory
+- Add your OCR.Space API key:
 
-Create a .env file in the project root.
-Add your OCR.Space API key:OCR_API_KEY=your_ocr_space_api_key
+```
+OCR_API_KEY=your_ocr_space_api_key
+```
 
+> 🔑 [Get your free API key here](https://ocr.space/ocrapi)
 
-Obtain an API key from OCR.Space.
+### 5. Ensure Upload Directory Exists
 
+The app will automatically create an `uploads/` folder if it doesn't exist.
 
-Create an uploads folder:
+---
 
-The app automatically creates an uploads folder for storing uploaded images if it doesn't exist.
+## ▶️ Usage
 
+### 1. Run the Application
 
-
-Usage
-
-Run the application:
+```bash
 python app.py
+```
 
-The app will start in debug mode and be accessible at http://127.0.0.1:5000.
+### 2. Access the Web Interface
 
-Access the web interface:
+Open a browser and go to:  
+👉 **http://127.0.0.1:5000**
 
-Open a browser and navigate to http://127.0.0.1:5000.
-Upload an Aadhaar or PAN card image (JPG, JPEG, or PNG).
-View the extracted information or error messages on the webpage.
+### 3. Upload Image
 
+- Upload either **Aadhaar** or **PAN** image
+- View extracted information or any errors
 
+---
 
-File Structure
+## 🖼️ Screenshot
 
-app.py: Main Flask application with routes and logic for processing images.
-templates/index.html: HTML template for the web interface (not included here but required).
-uploads/: Directory for storing uploaded images.
-.env: Environment file for storing the OCR.Space API key.
+> Save the following screenshot to `screenshots/card-extractor-screenshot.png`
 
-How It Works
+![Aadhaar Extraction Screenshot](screenshots/card-extractor-screenshot.png)
 
-File Upload:
+---
 
-Users upload an image via the web interface.
-The app validates the file format and saves it to the uploads folder.
+## 📁 File Structure
 
+```
+document-scanner/
+│
+├── app.py                     # Main Flask application
+├── templates/
+│   └── index.html             # HTML interface
+├── uploads/                   # Folder to store uploaded images
+├── screenshots/               # Screenshots folder (optional)
+├── .env                       # API key (not to be committed)
+└── README.md
+```
 
-OCR Processing:
+---
 
-The image is sent to the OCR.Space API, which extracts text from the image.
+## ⚙️ How It Works
 
+### 📁 File Upload
 
-Data Extraction:
+- User uploads Aadhaar or PAN image
+- App saves the file and validates format
 
-Regular expressions are used to identify Aadhaar or PAN numbers and dates of birth.
-Name and father's name (for PAN) are extracted based on text patterns and card-specific logic.
+### 🔎 OCR Processing
 
+- Image is sent to **OCR.Space**
+- Extracted text is received in response
 
-Result Display:
+### 🧠 Data Extraction
 
-Extracted details are displayed on the webpage, or an error message is shown if no valid card is detected.
+- Regex used to detect Aadhaar/PAN numbers and DOB
+- Name/Father’s name extraction via string matching logic
 
+### 📋 Result Display
 
+- Information is rendered on the webpage
+- If no valid card is detected → Error message shown
 
-Limitations
+---
 
-Requires a valid OCR.Space API key.
-Accuracy depends on image quality and OCR.Space API performance.
-Only supports JPG, JPEG, and PNG formats.
-Name and father's name extraction may not always be accurate due to varying card formats.
+## ⚠️ Limitations
 
-Notes
+- Requires **valid OCR.Space API key**
+- Accuracy depends on image quality and OCR performance
+- Only supports **JPG**, **JPEG**, **PNG**
+- May not extract names accurately from unclear images
 
-Ensure the .env file is not committed to version control for security.
-The index.html template must be created in the templates folder for the app to render the web interface.
-Debug mode is enabled by default; disable it in production for security.
+---
 
+## 🛡️ Notes
 
+- Keep your `.env` file **private** and **excluded from version control**
+- `index.html` in `templates/` is required for the web UI to function
+- Debug mode is on by default — **disable in production**
+
+---
+
+## 📝 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+> _"Turning images into structured data — fast, simple, and secure."_
