@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Extractor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result, .error {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .result {
+            background-color: #e7f3fe;
+            border: 1px solid #b3d7ff;
+        }
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .result p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Card Extractor</h1>
+        <div class="form-group">
+            <form method="POST" enctype="multipart/form-data">
+                <label for="file">Upload Aadhaar or PAN (PDF, JPG, PNG):</label>
+                <input type="file" id="file" name="file" accept=".pdf,.jpg,.jpeg,.png" required>
+                <button type="submit">Extract Details</button>
+            </form>
+        </div>
+
+        {% if error %}
+            <div class="error">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+
+        {% if result %}
+            <div class="result">
+                {% for key, value in result.items() %}
+                    <p><strong>{{ key }}:</strong> {{ value }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
